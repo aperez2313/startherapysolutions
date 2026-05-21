@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400">
+  <defs>
+    <pattern id="stars" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+      <circle cx="10" cy="10" r="1.2" fill="#7a5c2e" opacity="0.08"></circle>
+      <circle cx="50" cy="30" r="0.8" fill="#7a5c2e" opacity="0.06"></circle>
+      <circle cx="30" cy="60" r="1" fill="#e8527a" opacity="0.07"></circle>
+      <circle cx="70" cy="65" r="0.9" fill="#7a5c2e" opacity="0.06"></circle>
+      <circle cx="65" cy="10" r="1.1" fill="#5b9bd5" opacity="0.07"></circle>
+      <polygon points="20,40 21.5,44 26,44 22.5,46.5 24,51 20,48.5 16,51 17.5,46.5 14,44 18.5,44" fill="#7a5c2e" opacity="0.06"></polygon>
+      <polygon points="55,55 56,58 59,58 56.5,59.8 57.5,63 55,61.2 52.5,63 53.5,59.8 51,58 54,58" fill="#e8527a" opacity="0.05"></polygon>
+    </pattern>
+  </defs>
+  <rect width="400" height="400" fill="url(#stars)"></rect>
+</svg>
