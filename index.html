@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  🧑‍💻 LESSON: What is DOCTYPE?
+  This tells the browser: "This is an HTML5 document."
+  Always put this at the very top of every HTML file.
+  ============================================================
+-->
+<html lang="en">
+<!--
+  🧑‍💻 LESSON: The <html> tag
+  Everything on your webpage lives inside this tag.
+  lang="en" tells browsers (and screen readers) the page is in English.
+-->
+
+<head>
+  <!--
+    🧑‍💻 LESSON: The <head> section
+    This section is NOT visible on the page.
+    It contains metadata (info ABOUT your page) and links to styles/fonts.
+  -->
+
+  <meta charset="UTF-8" />
+  <!-- charset="UTF-8" makes sure special characters (é, ñ, etc.) display correctly -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- This makes your site look good on phones and tablets (responsive design) -->
+
+  <title>Little Voices Speech Therapy</title>
+  <!-- This text appears on the browser tab -->
+
+  <!-- 
+    🧑‍💻 LESSON: Google Fonts
+    We're importing two custom fonts from Google Fonts (free!):
+    - "Nunito" → a friendly, rounded font for body text
+    - "Baloo 2" → a playful font for headings
+    These are linked BEFORE our CSS so we can use them in our styles.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /*
+      ============================================================
+      🧑‍💻 LESSON: CSS (Cascading Style Sheets)
+      CSS is what makes your HTML look good.
+      The pattern is always:  selector { property: value; }
+
+      CSS LIVES here (inside <style> tags) OR in a separate .css file.
+      For small projects, keeping it in one file is fine.
+      ============================================================
+    */
+
+    /* ── CSS VARIABLES ──────────────────────────────────────────
+       Think of these like "color nicknames."
+       Define them once, use them everywhere.
+       If you want to change the brand color, you only edit ONE line!
+    ─────────────────────────────────────────────────────────── */
+    :root {
+      --teal:       #2BBFBF;
+      --teal-dark:  #1E8C8C;
+      --coral:      #FF7058;
+      --yellow:     #FFD166;
+      --bg:         #FDFAF6;
+      --text:       #2D3142;
+      --text-light: #6B7280;
+      --white:      #FFFFFF;
+      --radius:     16px;
+      --shadow:     0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    /* ── RESET & BASE ───────────────────────────────────────────
+       Browsers apply their own default styles. This "reset"
+       removes inconsistencies so we start with a clean slate.
+    ─────────────────────────────────────────────────────────── */
+    *, *::before, *::after {
+      box-sizing: border-box; /* makes sizing predictable */
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth; /* smooth scrolling when clicking nav links */
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7; /* space between lines of text */
+    }
+
+    /* ── UTILITY CLASSES ────────────────────────────────────────
+       Small, reusable classes you can add to any element.
+    ─────────────────────────────────────────────────────────── */
+    .container {
+      max-width: 1100px;    /* page won't stretch too wide on big screens */
+      margin: 0 auto;       /* centers the container horizontally */
+      padding: 0 24px;
+    }
+
+    .section-title {
+      font-family: 'Baloo 2', cursive;
+      font-size: 2rem;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .section-subtitle {
+      color: var(--text-light);
+      font-size: 1.1rem;
+      margin-bottom: 48px;
+    }
+
+    .btn {
+      /* 
+        🧑‍💻 LESSON: The "button" style
+        display: inline-block lets us set padding/width on a link.
+        border-radius rounds the corners.
+        transition animates changes smoothly (hover effects).
+      */
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: 50px;         /* pill shape */
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);        /* lifts button slightly on hover */
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .btn-primary {
+      background-color: var(--coral);
+      color: var(--white);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--white);
+      border: 2px solid var(--white);
+    }
+
+    /* ── NAVIGATION ─────────────────────────────────────────────
+       position: sticky keeps the nav visible as you scroll.
+    ─────────────────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100; /* stays above other content */
+      background-color: var(--white);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      padding: 16px 0;
+    }
+
+    .nav-inner {
+      display: flex;             /* places logo and links side-by-side */
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.5rem;
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .nav-logo span {
+      color: var(--coral);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;          /* space between each link */
+      list-style: none;   /* removes the bullet points */
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--teal);
+    }
+
+    /* Mobile nav toggle button — hidden on desktop */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.6rem;
+      color: var(--text);
+    }
+
+    /* ── HERO SECTION ───────────────────────────────────────────
+       The big banner at the top of the page.
+    ─────────────────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      /* 
+        🧑‍💻 LESSON: linear-gradient
+        Creates a smooth color blend. 135deg sets the angle.
+        Try changing it to 0deg (top-to-bottom) or 90deg (left-to-right)!
+      */
+      color: var(--white);
+      padding: 100px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative bubble shapes in the background */
+    .hero::before,
+    .hero::after {
+      content: '';         /* ::before and ::after create invisible "ghost" elements */
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.1;
+      background: var(--white);
+    }
+
+    .hero::before {
+      width: 400px; height: 400px;
+      top: -100px; left: -100px;
+    }
+
+    .hero::after {
+      width: 300px; height: 300px;
+      bottom: -80px; right: -60px;
+    }
+
+    .hero-emoji {
+      font-size: 4rem;
+      margin-bottom: 16px;
+      display: block;
+      animation: bounce 2s infinite;  /* uses the @keyframes below */
+    }
+
+    /* 
+      🧑‍💻 LESSON: @keyframes
+      This defines a reusable animation. 
+      "bounce" moves the emoji up and down.
+    */
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-12px); }
+    }
+
+    .hero h1 {
+      font-family: 'Baloo 2', cursive;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      /* 
+        🧑‍💻 LESSON: clamp()
+        clamp(min, preferred, max) — the font is responsive!
+        It won't go below 2rem or above 3.5rem.
+      */
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 560px;
+      margin: 0 auto 36px;
+      opacity: 0.9;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;  /* buttons stack on small screens */
+    }
+
+    /* ── ABOUT SECTION ──────────────────────────────────────────*/
+    .about {
+      padding: 90px 0;
+    }
+
+    .about-grid {
+      display: grid;
+      /*
+        🧑‍💻 LESSON: CSS Grid
+        grid-template-columns defines the columns.
+        "1fr 1fr" = two equal columns.
+        gap adds space between them.
+      */
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-visual {
+      background: linear-gradient(135deg, #E8F8F8, #FFF4E8);
+      border-radius: var(--radius);
+      padding: 40px;
+      text-align: center;
+      font-size: 5rem;  /* emoji "illustration" */
+      line-height: 1.4;
+      box-shadow: var(--shadow);
+    }
+
+    .about-text h2 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.9rem;
+      margin-bottom: 16px;
+      color: var(--teal-dark);
+    }
+
+    .about-text p {
+      color: var(--text-light);
+      margin-bottom: 16px;
+    }
+
+    /* ── SERVICES SECTION ───────────────────────────────────────*/
+    .services {
+      background-color: #F0FAFA;
+      padding: 90px 0;
+      text-align: center;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* three equal columns */
+      gap: 28px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s;
+      /*
+        🧑‍💻 LESSON: transition
+        Animates any CSS property changes over 0.3 seconds.
+        The hover effect below uses this.
+      */
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px); /* card "lifts" on hover */
+    }
+
+    .service-icon {
+      font-size: 2.8rem;
+      margin-bottom: 16px;
+    }
+
+    .service-card h3 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--teal-dark);
+    }
+
+    .service-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* ── TEAM / THERAPIST SECTION ───────────────────────────────*/
+    .team {
+      padding: 90px 0;
+      text-align: center;
+    }
+
+    .therapist-card {
+      max-width: 480px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 48px 40px;
+      box-shadow: var(--shadow);
+    }
+
+    .therapist-avatar {
+      font-size: 5rem;
+      background: linear-gradient(135deg, #E8F8F8, #FFF4E8);
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;        /* makes it a circle */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .therapist-card h3 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.5rem;
+      color: var(--teal-dark);
+    }
+
+    .therapist-card .title {
+      color: var(--coral);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .therapist-card p {
+      color: var(--text-light);
+    }
+
+    /* ── LOCATION SECTION ───────────────────────────────────────*/
+    .location {
+      background: #F0FAFA;
+      padding: 90px 0;
+    }
+
+    .location-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .location-info h2 {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.9rem;
+      color: var(--teal-dark);
+      margin-bottom: 24px;
+    }
+
+    .info-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+
+    .info-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;  /* prevents icon from shrinking */
+    }
+
+    .info-item h4 {
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .info-item p {
+      color: var(--text-light);
+    }
+
+    /* Map placeholder (replace with a real embedded Google Map) */
+    .map-placeholder {
+      background: linear-gradient(135deg, #d4f1f1, #e8f8e8);
+      border-radius: var(--radius);
+      height: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      gap: 12px;
+      color: var(--teal-dark);
+      font-family: 'Baloo 2', cursive;
+      font-size: 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .map-placeholder .map-emoji {
+      font-size: 3rem;
+    }
+
+    /* ── CONTACT SECTION ────────────────────────────────────────*/
+    .contact {
+      padding: 90px 0;
+      text-align: center;
+    }
+
+    .contact-form {
+      max-width: 580px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 48px 40px;
+      box-shadow: var(--shadow);
+      text-align: left;
+    }
+
+    /*
+      🧑‍💻 LESSON: Form Styling
+      label + input pairs are a core HTML pattern.
+      We use flexbox (flex-direction: column) to stack them vertically.
+    */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 12px 16px;
+      border: 2px solid #E5E7EB;
+      border-radius: 10px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      color: var(--text);
+      transition: border-color 0.2s;
+      background: var(--bg);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;            /* removes default browser outline */
+      border-color: var(--teal);  /* teal border when active */
+    }
+
+    .form-group textarea {
+      resize: vertical;   /* user can resize height only */
+      min-height: 120px;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 16px;
+      font-size: 1.1rem;
+    }
+
+    /* ── SUCCESS MESSAGE (hidden by default) ────────────────────*/
+    .success-msg {
+      display: none;           /* hidden until form submits */
+      text-align: center;
+      padding: 24px;
+      background: #E8F8F0;
+      border-radius: 12px;
+      color: #1A7A4A;
+      font-weight: 700;
+      margin-top: 16px;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────────*/
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    footer .footer-logo {
+      font-family: 'Baloo 2', cursive;
+      font-size: 1.4rem;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+
+    footer .footer-logo span { color: var(--coral); }
+
+    footer p { font-size: 0.9rem; }
+
+    footer a {
+      color: var(--yellow);
+      text-decoration: none;
+    }
+
+    /* ── RESPONSIVE (MOBILE) ────────────────────────────────────
+       🧑‍💻 LESSON: Media Queries
+       @media screen rules apply ONLY when the screen is smaller
+       than the specified width (max-width: 768px = tablet/phone).
+       This is how you make a "responsive" website.
+    ─────────────────────────────────────────────────────────── */
+    @media screen and (max-width: 768px) {
+      .about-grid,
+      .location-grid {
+        grid-template-columns: 1fr; /* stacks into one column on mobile */
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;          /* hide nav links on mobile */
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        background: var(--white);
+        padding: 16px 24px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        gap: 16px;
+      }
+
+      .nav-links.open {
+        display: flex;          /* JavaScript will add/remove "open" class */
+      }
+
+      .nav-toggle {
+        display: block;         /* show hamburger icon on mobile */
+      }
+
+      nav { position: relative; }
+
+      .contact-form {
+        padding: 32px 24px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+    🧑‍💻 LESSON: HTML STRUCTURE
+    Think of HTML like building blocks:
+    - <nav>    = the navigation bar
+    - <header> / <section> = major content areas
+    - <footer> = the bottom of the page
+
+    We use id="..." so nav links can jump to each section.
+  ============================================================ -->
+
+  <!-- NAVIGATION BAR -->
+  <nav>
+    <div class="container nav-inner">
+      <a href="#home" class="nav-logo">Little <span>Voices</span></a>
+
+      <!-- Hamburger button (visible on mobile only) -->
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">☰</button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#team">Our Therapist</a></li>
+        <li><a href="#location">Location</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="home">
+    <div class="container">
+      <span class="hero-emoji">🗣️</span>
+      <h1>Helping Every Child<br>Find Their Voice</h1>
+      <p>
+        Compassionate, evidence-based speech therapy for children
+        of all ages — in a warm, playful environment they'll love.
+      </p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary">Book a Consultation</a>
+        <a href="#services" class="btn btn-outline">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- Left column: visual/illustration -->
+        <div class="about-visual">
+          🧒 🗨️<br>💬 👧<br>🌟 📚
+        </div>
+
+        <!-- Right column: text -->
+        <div class="about-text">
+          <h2>What We Do</h2>
+          <p>
+            At Little Voices, we believe every child deserves to be heard.
+            Our speech-language therapy practice is dedicated to helping
+            kids develop strong communication skills in a safe, encouraging space.
+          </p>
+          <p>
+            We work with children ages 2–18 on a wide range of needs —
+            from early language delays and articulation challenges to
+            fluency, social communication, and more.
+          </p>
+          <p>
+            Every therapy plan is personalized to your child's unique
+            strengths, goals, and learning style.
+          </p>
+          <a href="#contact" class="btn btn-primary">Get in Touch</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section class="services" id="services">
+    <div class="container">
+      <h2 class="section-title">Our Services</h2>
+      <p class="section-subtitle">Specialized support for every stage of your child's journey</p>
+
+      <!--
+        🧑‍💻 LESSON: Repeating components
+        Each service is a "card" — same structure, different content.
+        This is a great pattern you'll see everywhere in web development.
+      -->
+      <div class="services-grid">
+
+        <div class="service-card">
+          <div class="service-icon">🗣️</div>
+          <h3>Articulation Therapy</h3>
+          <p>Helping children produce speech sounds clearly and correctly so they can be understood with confidence.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">💬</div>
+          <h3>Language Development</h3>
+          <p>Building vocabulary, grammar, and understanding — for children with language delays or developmental differences.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🌊</div>
+          <h3>Fluency & Stuttering</h3>
+          <p>Evidence-based strategies to improve speech flow and build confidence in everyday conversations.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🤝</div>
+          <h3>Social Communication</h3>
+          <p>Developing the skills to connect, listen, and communicate effectively with peers and adults.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🧩</div>
+          <h3>AAC Support</h3>
+          <p>Augmentative and Alternative Communication tools and training for children who need extra support.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🏠</div>
+          <h3>Parent Coaching</h3>
+          <p>Empowering families with strategies and activities to continue progress at home between sessions.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- THERAPIST SECTION -->
+  <section class="team" id="team">
+    <div class="container">
+      <h2 class="section-title">Meet Your Therapist</h2>
+      <p class="section-subtitle">Passionate, licensed, and here for your family</p>
+
+      <div class="therapist-card">
+        <div class="therapist-avatar">👩‍⚕️</div>
+        <h3>Dr. Maria Gonzalez, CCC-SLP</h3>
+        <p class="title">Licensed Speech-Language Pathologist</p>
+        <p>
+          With over 10 years of experience working with children, Dr. Gonzalez
+          brings warmth, expertise, and evidence-based practice to every session.
+          She holds a Master's degree in Communication Disorders and is
+          a member of ASHA (American Speech-Language-Hearing Association).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION / HOURS SECTION -->
+  <section class="location" id="location">
+    <div class="container">
+      <div class="location-grid">
+
+        <!-- Info column -->
+        <div class="location-info">
+          <h2>Find Us</h2>
+
+          <div class="info-item">
+            <span class="info-icon">📍</span>
+            <div>
+              <h4>Address</h4>
+              <p>123 Sunshine Blvd, Suite 200<br>Miami, FL 33101</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <span class="info-icon">🕐</span>
+            <div>
+              <h4>Office Hours</h4>
+              <p>Monday – Friday: 8:00 AM – 6:00 PM<br>Saturday: 9:00 AM – 1:00 PM</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <span class="info-icon">📞</span>
+            <div>
+              <h4>Phone</h4>
+              <p><a href="tel:+13055550100" style="color: var(--teal); font-weight:700;">(305) 555-0100</a></p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <span class="info-icon">✉️</span>
+            <div>
+              <h4>Email</h4>
+              <p><a href="mailto:hello@littlevoices.com" style="color: var(--teal); font-weight:700;">hello@littlevoices.com</a></p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <span class="info-icon">🅿️</span>
+            <div>
+              <h4>Parking</h4>
+              <p>Free parking available in the building lot.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map placeholder column -->
+        <div class="map-placeholder">
+          <span class="map-emoji">🗺️</span>
+          <strong>Interactive Map Coming Soon</strong>
+          <small style="color: var(--text-light);">Replace this with a Google Maps embed</small>
+          <!--
+            🧑‍💻 FUTURE LESSON: To embed a real Google Map, go to
+            maps.google.com, search your address, click Share →
+            Embed a map, and paste the <iframe> code here!
+          -->
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2 class="section-title">Get in Touch</h2>
+      <p class="section-subtitle">We'd love to hear from you — reach out to schedule a free consultation!</p>
+
+      <div class="contact-form">
+        <!--
+          🧑‍💻 LESSON: HTML Forms
+          - <input> collects short text (name, email, phone)
+          - <textarea> collects longer text (message)
+          - <select> creates a dropdown menu
+          - type="email" makes the browser validate email format
+          - required = field must be filled before submitting
+        -->
+        <div class="form-group">
+          <label for="name">Parent / Guardian Name</label>
+          <input type="text" id="name" placeholder="Jane Smith" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="jane@email.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="(305) 555-0100" />
+        </div>
+
+        <div class="form-group">
+          <label for="child-age">Child's Age</label>
+          <select id="child-age">
+            <option value="">Select age range…</option>
+            <option>2–4 years</option>
+            <option>5–7 years</option>
+            <option>8–11 years</option>
+            <option>12–18 years</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Tell us about your child's needs</label>
+          <textarea id="message" placeholder="Briefly describe what brought you here…"></textarea>
+        </div>
+
+        <!-- Button with id so JavaScript can find it -->
+        <button class="btn btn-primary form-submit" id="submitBtn">
+          Send Message 💌
+        </button>
+
+        <!-- Success message (shown by JS after submit) -->
+        <div class="success-msg" id="successMsg">
+          ✅ Message sent! We'll be in touch within 1 business day.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Little <span>Voices</span></div>
+    <p>Speech Therapy for Kids · Miami, FL</p>
+    <p style="margin-top: 8px;">
+      <a href="tel:+13055550100">(305) 555-0100</a> ·
+      <a href="mailto:hello@littlevoices.com">hello@littlevoices.com</a>
+    </p>
+    <p style="margin-top: 16px; font-size: 0.8rem; opacity: 0.5;">
+      © 2025 Little Voices Speech Therapy. All rights reserved.
+    </p>
+  </footer>
+
+  <!-- ============================================================
+    🧑‍💻 LESSON: JavaScript
+    JavaScript makes your page INTERACTIVE.
+    We put <script> at the BOTTOM of the page so the HTML loads first.
+
+    Key concepts used below:
+    1. document.getElementById() — finds an element by its id
+    2. addEventListener() — listens for user actions (clicks, etc.)
+    3. classList.toggle() — adds or removes a CSS class
+  ============================================================ -->
+  <script>
+
+    // ── MOBILE NAV TOGGLE ─────────────────────────────────────
+    // When the hamburger button is clicked, toggle the "open" class
+    // on the nav links. Our CSS shows the links when "open" is present.
+
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+
+    navToggle.addEventListener('click', function() {
+      navLinks.classList.toggle('open');
+      // toggle() adds the class if it's missing, removes it if it's there
+    });
+
+    // Close mobile menu when a nav link is clicked
+    navLinks.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        navLinks.classList.remove('open');
+      });
+    });
+
+
+    // ── CONTACT FORM SUBMISSION ───────────────────────────────
+    // This is a simple front-end demo — no real email is sent yet.
+    // (To send real emails, you'd connect a backend service like Formspree.)
+
+    const submitBtn  = document.getElementById('submitBtn');
+    const successMsg = document.getElementById('successMsg');
+    const nameInput  = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+
+    submitBtn.addEventListener('click', function() {
+      // Check that required fields are filled
+      if (!nameInput.value || !emailInput.value) {
+        alert('Please fill in your name and email before submitting.');
+        return; // stops the function here
+      }
+
+      // Show success message and change button text
+      successMsg.style.display = 'block';
+      submitBtn.textContent = '✅ Sent!';
+      submitBtn.style.backgroundColor = '#2ecc71';
+      submitBtn.disabled = true; // prevent double-submit
+    });
+
+
+    // ── SMOOTH ACTIVE NAV HIGHLIGHTING ───────────────────────
+    // Uses IntersectionObserver to detect which section is visible
+    // and highlight the matching nav link.
+
+    const sections = document.querySelectorAll('section[id]');
+    // querySelectorAll returns all matching elements as a list
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          // Remove "active" from all nav links
+          document.querySelectorAll('.nav-links a').forEach(a => a.style.color = '');
+          // Highlight the matching link
+          const activeLink = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+          if (activeLink) activeLink.style.color = 'var(--teal)';
+        }
+      });
+    }, { threshold: 0.4 }); // triggers when 40% of section is visible
+
+    sections.forEach(section => observer.observe(section));
+
+  </script>
+
+</body>
+</html>
