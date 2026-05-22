@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Team | Join Us | Star Therapy Solutions</title>
+  <meta name="description" content="Meet the team at Star Therapy Solutions. We are a therapist-owned pediatric therapy practice in Miami Lakes serving Miami-Dade County. Now hiring SLP, SLPA, OTR/L, and COTA." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.startherapysolutions.com/team.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Our Team | Star Therapy Solutions" />
+  <meta property="og:description" content="Therapist-owned pediatric practice now hiring licensed and certified speech and occupational therapy professionals in Miami-Dade County." />
+  <meta property="og:url" content="https://www.startherapysolutions.com/team.html" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+
+  <nav aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Star Therapy Solutions</a>
+      <button id="navToggle" aria-label="Open navigation menu">&#9776;</button>
+      <ul id="navLinks" role="list">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="index.html#areas">Areas We Serve</a></li>
+        <li><a href="index.html#insurance">Insurance</a></li>
+        <li><a href="team.html" aria-current="page">Team</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <span class="section-label">Our Team</span>
+    <h1>Meet Our Therapists</h1>
+    <p>A therapist-owned practice built on clinical excellence and a passion for helping children thrive.</p>
+  </div>
+
+  <main>
+
+    <!-- NOW HIRING -->
+    <section id="hiring" aria-labelledby="hiring-heading">
+      <div class="areas-inner">
+        <span class="section-label">We&rsquo;re Growing</span>
+        <h2 id="hiring-heading">Now Hiring</h2>
+        <p class="lead">Star Therapy Solutions is looking for passionate, licensed, and certified clinicians to join our team. We provide pediatric therapy on-site at schools and daycares across Miami-Dade County.</p>
+
+        <div class="services-grid">
+
+          <div class="service-card">
+            <h3>SLP</h3>
+            <p>Speech-Language Pathologist &mdash; licensed in the state of Florida with experience in pediatric populations.</p>
+          </div>
+
+          <div class="service-card">
+            <h3>SLPA</h3>
+            <p>Speech-Language Pathology Assistant &mdash; state-registered with a supervising SLP relationship.</p>
+          </div>
+
+          <div class="service-card">
+            <h3>OTR/L</h3>
+            <p>Occupational Therapist, Registered and Licensed &mdash; experience in pediatric fine motor and sensory processing preferred.</p>
+          </div>
+
+          <div class="service-card">
+            <h3>COTA</h3>
+            <p>Certified Occupational Therapy Assistant &mdash; state-licensed with a supervising OTR/L relationship.</p>
+          </div>
+
+        </div>
+
+        <p style="margin-top: 32px;">If you are interested in joining our team, please reach out directly. We&rsquo;d love to hear from you.</p>
+        <a href="index.html#contact" class="btn-primary" style="display:inline-block; margin-top: 16px;">Get in Touch</a>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-strip" aria-label="Call to action">
+      <span class="section-label">Join Our Team</span>
+      <h2>Interested in working with us?</h2>
+      <p>Reach out and a member of our team will follow up within 1 business day.</p>
+      <a href="index.html#contact" class="btn-primary">Contact Us Today</a>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <strong>Star Therapy Solutions</strong>
+        <p>Pediatric Speech &amp; Occupational Therapy</p>
+        <p>Miami Lakes &middot; Hialeah &middot; Palm Springs North &middot; Miami-Dade County, FL</p>
+        <p>6625 Miami Lakes Drive, Unit #234 &middot; Miami Lakes, FL 33014</p>
+      </div>
+      <div class="footer-contact">
+        <a href="tel:+13057786144">(305) 778-6144</a>
+        <a href="mailto:startherapysolutions@gmail.com">startherapysolutions@gmail.com</a>
+      </div>
+    </div>
+    <hr class="footer-divider" />
+    <div class="footer-copy">
+      <p>&copy; 2025 Star Therapy Solutions. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+  </script>
+
+</body>
+</html>
